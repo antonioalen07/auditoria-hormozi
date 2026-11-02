@@ -1,4 +1,11 @@
 .env
+.env.*
+!.env.example
+# configuración local de Claude Code: puede tener tokens de conectores
+.mcp.json
+.claude/settings.local.json
+# caché de voz
+audio/
 node_modules/
 .DS_Store
 sessions/*

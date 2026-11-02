@@ -74,7 +74,9 @@ export function preguntar({ texto = "", nueva = false }) {
   if (previa) args.push("--resume", previa);
 
   ocupado = { desde: Date.now(), texto };
-  const proc = spawn(BIN, args, { cwd: RAIZ, env: { ...process.env, AUDITORIA_SALA: "1" }, shell: process.platform === "win32" });
+  // Claude no necesita la clave de ElevenLabs: no se la pasamos.
+  const { ELEVENLABS_API_KEY, ...entorno } = process.env;
+  const proc = spawn(BIN, args, { cwd: RAIZ, env: { ...entorno, AUDITORIA_SALA: "1" }, shell: process.platform === "win32" });
   let salida = "", errores = "";
   proc.stdout.on("data", (c) => (salida += c));
   proc.stderr.on("data", (c) => (errores += c));

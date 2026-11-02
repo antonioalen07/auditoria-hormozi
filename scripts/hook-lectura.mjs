@@ -14,7 +14,9 @@ import { partirHerramienta, conectorDe, sesionActual, agregarEvento } from "./li
 const ESCRIBE = new Set(["create", "update", "delete", "remove", "send", "post", "publish", "insert", "upsert", "patch", "put", "set", "add", "write", "edit", "move", "archive", "cancel", "pause", "resume", "enable", "disable", "duplicate", "upload", "import", "trigger", "charge", "refund", "transfer", "invite", "assign", "merge", "reply", "comment", "schedule", "book", "submit", "approve", "reject", "restore", "rename", "replace", "append", "clear", "reset", "sync", "push", "launch", "start", "stop", "deploy", "drop", "truncate", "alter", "grant", "revoke", "apply", "modify", "change", "mark", "tag", "untag", "subscribe", "unsubscribe", "trash", "empty", "batch", "mutate", "run", "execute", "exec", "call", "invoke"]);
 const LEE = new Set(["get", "list", "search", "query", "find", "fetch", "read", "retrieve", "describe", "view", "lookup", "count", "show", "analyze", "analyse", "report", "reports", "insights", "insight", "stats", "statistics", "summarize", "summary", "download", "export", "browse", "inspect", "check", "status", "info", "details", "metrics", "explain", "preview", "select"]);
 const SQL_LECTURA = /^\s*(select|with|show|explain|describe|desc)\b/i;
-const SQL_ESCRITURA = /\b(insert|update|delete|drop|alter|truncate|create|grant|revoke|merge|upsert|copy)\b/i;
+const SQL_ESCRITURA = /\b(insert|update|delete|drop|alter|truncate|create|grant|revoke|merge|upsert|copy|commit|rollback|begin|call|do|vacuum|reindex|cluster|lock|notify|listen|prepare|execute|refresh|comment|reassign|security|discard|checkpoint|savepoint|release|import|pg_terminate_backend|pg_cancel_backend|set_config|lo_import|lo_export|dblink\w*)\b/i;
+// Una sola sentencia: "SELECT 1; COMMIT; DROP ..." se usa para saltar el modo solo lectura.
+const VARIAS_SENTENCIAS = (sql) => /;\s*\S/.test(sql.replace(/'(?:[^']|'')*'/g, "''").replace(/"(?:[^"]|"")*"/g, '""').replace(/--[^\n]*/g, "").replace(/\/\*[\s\S]*?\*\//g, ""));
 
 const VERBOS = [
   [/search|query|find|lookup|buscar/i, "Buscando"],
@@ -36,7 +38,7 @@ function sqlDe(input) {
 // "allow" | "deny" | null (sin decisión)
 function decidir(tool, input) {
   const sql = sqlDe(input);
-  if (sql) return SQL_LECTURA.test(sql) && !SQL_ESCRITURA.test(sql) ? "allow" : "deny";
+  if (sql) return SQL_LECTURA.test(sql) && !SQL_ESCRITURA.test(sql) && !VARIAS_SENTENCIAS(sql) ? "allow" : "deny";
   const ps = palabras(tool);
   if (ps.some((p) => ESCRIBE.has(p))) return "deny";
   if (ps.some((p) => LEE.has(p))) return "allow";

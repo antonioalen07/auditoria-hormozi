@@ -43,6 +43,11 @@ El asesor **solo lee** tus herramientas. Además de la regla en la skill, el pro
 - En bases de datos, solo se permiten consultas SELECT.
 - Las que no se pueden clasificar te piden permiso como siempre (y en modo automático, se rechazan).
 
+Además, por las dudas:
+- **Tokens de solo lectura.** En GoHighLevel, creá la integración privada solo con permisos de lectura. En tu base de datos, conectala con un usuario de solo lectura, no con `postgres`.
+- **La sala solo se habla a sí misma.** Escucha únicamente en tu computadora y rechaza pedidos de otras páginas abiertas en tu navegador, así nadie puede usar tu Claude ni tus créditos de voz desde afuera.
+- **Tus claves no se suben.** `.env`, `.mcp.json` y tus auditorías (`sessions/`) están en `.gitignore`. Conectá las herramientas con `claude mcp add -s local`, que guarda los tokens en tu configuración de Claude y no en el proyecto.
+
 ## Voz
 
 - **Por defecto:** la voz del navegador (gratis). En la sala elegís entre las voces en español que tenga tu equipo.

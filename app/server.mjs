@@ -22,6 +22,18 @@ const EL_MODEL = process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2";
 const PUBLIC = path.join(RAIZ, "app", "public");
 const TIPOS = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp", ".jpg": "image/jpeg", ".md": "text/plain; charset=utf-8" };
 
+// Solo la propia sala puede usar la API: otras páginas abiertas en el navegador no (CSRF),
+// y un dominio ajeno que apunte a 127.0.0.1 tampoco (DNS rebinding).
+const HOSTS = new Set([`localhost:${PORT}`, `127.0.0.1:${PORT}`, `[::1]:${PORT}`]);
+function permitido(req) {
+  if (!HOSTS.has(req.headers.host || "")) return "Host no permitido.";
+  const origen = req.headers.origin;
+  if (origen && !HOSTS.has(origen.replace(/^https?:\/\//, ""))) return "Origen no permitido.";
+  if (req.method === "POST" && !String(req.headers["content-type"] || "").startsWith("application/json")) return "Se espera JSON.";
+  return null;
+}
+const idValido = (s) => /^[\w-][\w.-]*$/.test(s) && !s.includes("..");
+
 const enviar = (res, code, body) => { res.writeHead(code, { "content-type": "application/json", "cache-control": "no-store" }); res.end(JSON.stringify(body)); };
 
 function listarSesiones() {
@@ -36,7 +48,7 @@ function listarSesiones() {
 const pendientes = new Map();
 async function tts(texto, sesion) {
   const hash = crypto.createHash("sha1").update(`${EL_VOICE}|${EL_MODEL}|${texto}`).digest("hex").slice(0, 16);
-  const dir = path.join(SESIONES, sesion && fs.existsSync(path.join(SESIONES, sesion)) ? sesion : ".cache", "audio");
+  const dir = path.join(SESIONES, sesion && idValido(sesion) && fs.existsSync(path.join(SESIONES, sesion)) ? sesion : ".cache", "audio");
   const archivo = path.join(dir, `${hash}.json`);
   if (fs.existsSync(archivo)) return JSON.parse(fs.readFileSync(archivo, "utf8"));
   if (pendientes.has(archivo)) return pendientes.get(archivo);
@@ -71,6 +83,8 @@ let avisoTts = false;
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   const p = url.pathname;
+  const rechazo = permitido(req);
+  if (rechazo) return enviar(res, 403, { error: rechazo });
   try {
     if (p === "/api/estado") {
       const logos = fs.readdirSync(path.join(PUBLIC, "logos")).filter((f) => /\.(svg|png|webp)$/i.test(f));
@@ -78,7 +92,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (p === "/api/eventos") {
       const id = url.searchParams.get("s") || "";
-      if (!/^[\w.-]+$/.test(id) || !fs.existsSync(path.join(SESIONES, id))) return enviar(res, 404, { error: "No existe esa sesión." });
+      if (!idValido(id) || !fs.existsSync(path.join(SESIONES, id))) return enviar(res, 404, { error: "No existe esa sesión." });
       const desde = Number(url.searchParams.get("desde") || 0);
       const ev = leerEventos(id);
       return enviar(res, 200, { eventos: ev.slice(desde), total: ev.length });
