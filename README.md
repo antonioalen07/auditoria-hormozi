@@ -28,7 +28,7 @@ Abrí http://localhost:4740 y tocá **Ver ejemplo** para ver una auditoría comp
 
 1. Conectá tus herramientas a Claude: en Claude, **Configuración → Conectores**; en Claude Code, `claude mcp add`.
 2. Contale qué querés saber, con tus palabras: en la barra de la sala (escribiendo o con el micrófono) o directo en Claude Code. Por ejemplo: "auditame porque quiero saber si puedo subir los precios" o "quiero empezar a invertir en anuncios, ¿cuánto capital me recomendás?". No hay cuestionario: arranca a leer tus herramientas para contestarte.
-3. Si le falta un dato imprescindible, te hace una sola pregunta; contestale en la sala. Si te perdiste algo de lo que dijo, tocá **↺ Repetir** (otra vez para ir más atrás).
+3. Si le falta un dato imprescindible, te hace una sola pregunta; contestale en la sala. Si te perdiste algo de lo que dijo, tocá **⏮ Anterior** (cada toque va una frase más atrás y después sigue sola) o **↺ Repetir** para volver a escuchar la frase actual.
 4. Cuando termine, seguí charlando: "¿y si subo el precio?", "¿qué hago con los anuncios?". Si necesita, vuelve a leer tus herramientas para contestar.
 
 Cada respuesta tarda entre 10 y 30 segundos aproximadamente (más si tiene que leer herramientas). Mientras tanto vas a ver qué está revisando.

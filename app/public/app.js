@@ -295,7 +295,7 @@ const manejar = {
     const rep = Boolean(ev.repetido);
     if (!rep) st.dichas.push(ev);
     st.actualSay = rep ? ev._i : st.dichas.length - 1; st.esRepeticion = rep;
-    $("#repetir").disabled = false;
+    $("#repetir").disabled = false; $("#anterior").disabled = false;
     $("#lectura").hidden = true;
     $("#tema").textContent = ev.topic || (ev.source ? ev.source : "Asesor");
     const f = ev.source ? buscarFuente(ev.source) : null;
@@ -364,7 +364,7 @@ async function procesar() {
 // ---------- sesiones
 function limpiar() {
   st.run++; st.cola = []; st.desde = 0; st.pausa = false; st.saltar = false; st.corriendo = false;
-  st.dichas = []; st.actualSay = -1; st.esRepeticion = false; st.nueva = false; $("#repetir").disabled = true;
+  st.dichas = []; st.actualSay = -1; st.esRepeticion = false; st.nueva = false; $("#repetir").disabled = true; $("#anterior").disabled = true;
   if (synth) synth.cancel();
   if (fuenteAudio) { try { fuenteAudio.stop(); } catch {} }
   pararBoca();
@@ -429,18 +429,23 @@ $("#siguiente").addEventListener("click", async () => {
   if (synth) synth.cancel();
   if (fuenteAudio) { try { fuenteAudio.stop(); } catch {} }
 });
-// Repetir: si está hablando, vuelve a empezar esa frase; si ya está repitiendo, va una más atrás;
-// si está callado, repite la última.
-$("#repetir").addEventListener("click", async () => {
+// Anterior y Repetir: vuelven a decir frases ya dichas y siguen hacia adelante hasta la última,
+// así nunca se queda atrás. Repetir arranca en la frase actual; Anterior, una antes (y cada toque, una más).
+async function rebobinar(atras) {
   const hablandoAhora = st.actualSay >= 0;
-  const i = hablandoAhora ? (st.esRepeticion ? st.actualSay - 1 : st.actualSay) : st.dichas.length - 1;
-  if (i < 0 || !st.dichas[i]) return;
+  const actual = hablandoAhora ? st.actualSay : st.dichas.length - 1;
+  const desde = Math.max(0, atras && hablandoAhora ? actual - 1 : actual);
+  if (!st.dichas[desde]) return;
   asegurarAudio();
-  st.cola.unshift({ ...st.dichas[i], repetido: true, _i: i });
+  st.cola = st.cola.filter((e) => !e.repetido);
+  const tramo = st.dichas.slice(desde).map((ev, k) => ({ ...ev, repetido: true, _i: desde + k }));
+  st.cola.unshift(...tramo);
   if (st.pausa) { st.pausa = false; $("#pausa").textContent = "Pausa"; if (ctx) await ctx.resume(); if (synth) synth.resume(); }
   if (hablandoAhora) cortarFrase();
   procesar();
-});
+}
+$("#repetir").addEventListener("click", () => rebobinar(false));
+$("#anterior").addEventListener("click", () => rebobinar(true));
 $("#sonido").addEventListener("click", () => {
   st.mudo = !st.mudo;
   $("#sonido").textContent = st.mudo ? "Sonido: no" : "Sonido: sí";
