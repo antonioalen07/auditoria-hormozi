@@ -1,0 +1,449 @@
+{
+  "_info": "Cómo se muestra cada conector en la sala. 'match' son palabras que aparecen en el nombre del servidor MCP (sin mayúsculas). 'slug' es el nombre del archivo de logo en app/public/logos/ (slug.svg o slug.png). Agregá los tuyos. 'icono' (Simple Icons) y 'dominio' sirven para que scripts/logos.mjs descargue el logo solo.",
+  "conocidos": [
+    {
+      "match": [
+        "software operativo",
+        "operativo"
+      ],
+      "name": "Software operativo",
+      "slug": "supabase",
+      "category": "Base de datos"
+    },
+    {
+      "match": [
+        "google calendar",
+        "gcal"
+      ],
+      "name": "Google Calendar",
+      "slug": "google-calendar",
+      "category": "Agenda",
+      "icono": "googlecalendar",
+      "dominio": "calendar.google.com"
+    },
+    {
+      "match": [
+        "google docs"
+      ],
+      "name": "Google Docs",
+      "slug": "google-docs",
+      "category": "Documentos",
+      "icono": "googledocs",
+      "dominio": "docs.google.com"
+    },
+    {
+      "match": [
+        "notion"
+      ],
+      "name": "Notion",
+      "slug": "notion",
+      "category": "Notas y finanzas",
+      "icono": "notion",
+      "dominio": "notion.so"
+    },
+    {
+      "match": [
+        "sheets",
+        "google sheets",
+        "gsheets"
+      ],
+      "name": "Google Sheets",
+      "slug": "google-sheets",
+      "category": "Ventas y números",
+      "icono": "googlesheets",
+      "dominio": "sheets.google.com"
+    },
+    {
+      "match": [
+        "google drive",
+        "drive"
+      ],
+      "name": "Google Drive",
+      "slug": "google-drive",
+      "category": "Documentos",
+      "icono": "googledrive",
+      "dominio": "drive.google.com"
+    },
+    {
+      "match": [
+        "meta ads",
+        "facebook ads",
+        "meta",
+        "facebook",
+        "instagram"
+      ],
+      "name": "Meta Ads",
+      "slug": "meta",
+      "category": "Anuncios",
+      "icono": "meta",
+      "dominio": "meta.com"
+    },
+    {
+      "match": [
+        "google ads"
+      ],
+      "name": "Google Ads",
+      "slug": "google-ads",
+      "category": "Anuncios",
+      "icono": "googleads",
+      "dominio": "ads.google.com"
+    },
+    {
+      "match": [
+        "tiktok"
+      ],
+      "name": "TikTok Ads",
+      "slug": "tiktok",
+      "category": "Anuncios",
+      "icono": "tiktok",
+      "dominio": "tiktok.com"
+    },
+    {
+      "match": [
+        "gohighlevel",
+        "highlevel",
+        "ghl",
+        "lead connector",
+        "leadconnector"
+      ],
+      "name": "GoHighLevel",
+      "slug": "gohighlevel",
+      "category": "CRM",
+      "dominio": "gohighlevel.com"
+    },
+    {
+      "match": [
+        "hubspot"
+      ],
+      "name": "HubSpot",
+      "slug": "hubspot",
+      "category": "CRM",
+      "icono": "hubspot",
+      "dominio": "hubspot.com"
+    },
+    {
+      "match": [
+        "pipedrive"
+      ],
+      "name": "Pipedrive",
+      "slug": "pipedrive",
+      "category": "CRM",
+      "dominio": "pipedrive.com"
+    },
+    {
+      "match": [
+        "salesforce"
+      ],
+      "name": "Salesforce",
+      "slug": "salesforce",
+      "category": "CRM",
+      "dominio": "salesforce.com"
+    },
+    {
+      "match": [
+        "kommo",
+        "amocrm"
+      ],
+      "name": "Kommo",
+      "slug": "kommo",
+      "category": "CRM",
+      "dominio": "kommo.com"
+    },
+    {
+      "match": [
+        "manychat"
+      ],
+      "name": "ManyChat",
+      "slug": "manychat",
+      "category": "Mensajería",
+      "dominio": "manychat.com"
+    },
+    {
+      "match": [
+        "whatsapp"
+      ],
+      "name": "WhatsApp",
+      "slug": "whatsapp",
+      "category": "Mensajería",
+      "icono": "whatsapp",
+      "dominio": "whatsapp.com"
+    },
+    {
+      "match": [
+        "intercom"
+      ],
+      "name": "Intercom",
+      "slug": "intercom",
+      "category": "Mensajería",
+      "icono": "intercom",
+      "dominio": "intercom.com"
+    },
+    {
+      "match": [
+        "gmail"
+      ],
+      "name": "Gmail",
+      "slug": "gmail",
+      "category": "Mensajería",
+      "icono": "gmail",
+      "dominio": "mail.google.com"
+    },
+    {
+      "match": [
+        "slack"
+      ],
+      "name": "Slack",
+      "slug": "slack",
+      "category": "Equipo",
+      "dominio": "slack.com"
+    },
+    {
+      "match": [
+        "supabase"
+      ],
+      "name": "Supabase",
+      "slug": "supabase",
+      "category": "Base de datos",
+      "icono": "supabase",
+      "dominio": "supabase.com"
+    },
+    {
+      "match": [
+        "airtable"
+      ],
+      "name": "Airtable",
+      "slug": "airtable",
+      "category": "Base de datos",
+      "icono": "airtable",
+      "dominio": "airtable.com"
+    },
+    {
+      "match": [
+        "postgres",
+        "mysql",
+        "sqlite",
+        "bigquery"
+      ],
+      "name": "Base de datos",
+      "slug": "database",
+      "category": "Base de datos",
+      "icono": "postgresql",
+      "dominio": "postgresql.org"
+    },
+    {
+      "match": [
+        "stripe"
+      ],
+      "name": "Stripe",
+      "slug": "stripe",
+      "category": "Cobros",
+      "icono": "stripe",
+      "dominio": "stripe.com"
+    },
+    {
+      "match": [
+        "mercadopago",
+        "mercado pago"
+      ],
+      "name": "Mercado Pago",
+      "slug": "mercadopago",
+      "category": "Cobros",
+      "icono": "mercadopago",
+      "dominio": "mercadopago.com"
+    },
+    {
+      "match": [
+        "shopify"
+      ],
+      "name": "Shopify",
+      "slug": "shopify",
+      "category": "Tienda",
+      "icono": "shopify",
+      "dominio": "shopify.com"
+    },
+    {
+      "match": [
+        "tiendanube",
+        "nuvemshop"
+      ],
+      "name": "Tiendanube",
+      "slug": "tiendanube",
+      "category": "Tienda",
+      "dominio": "tiendanube.com"
+    },
+    {
+      "match": [
+        "woocommerce",
+        "wordpress"
+      ],
+      "name": "WooCommerce",
+      "slug": "woocommerce",
+      "category": "Tienda",
+      "icono": "woocommerce",
+      "dominio": "woocommerce.com"
+    },
+    {
+      "match": [
+        "google analytics",
+        "analytics",
+        "ga4"
+      ],
+      "name": "Google Analytics",
+      "slug": "google-analytics",
+      "category": "Tráfico",
+      "icono": "googleanalytics",
+      "dominio": "analytics.google.com"
+    },
+    {
+      "match": [
+        "calendar",
+        "calendly"
+      ],
+      "name": "Calendario",
+      "slug": "calendar",
+      "category": "Agenda",
+      "icono": "googlecalendar",
+      "dominio": "calendar.google.com"
+    },
+    {
+      "match": [
+        "n8n"
+      ],
+      "name": "n8n",
+      "slug": "n8n",
+      "category": "Automatizaciones",
+      "icono": "n8n",
+      "dominio": "n8n.io"
+    },
+    {
+      "match": [
+        "quickbooks",
+        "xero",
+        "contabil"
+      ],
+      "name": "Contabilidad",
+      "slug": "accounting",
+      "category": "Finanzas",
+      "icono": "quickbooks",
+      "dominio": "quickbooks.intuit.com"
+    },
+    {
+      "match": [
+        "fireflies"
+      ],
+      "name": "Fireflies",
+      "slug": "fireflies",
+      "category": "Llamadas",
+      "dominio": "fireflies.ai"
+    },
+    {
+      "match": [
+        "fathom"
+      ],
+      "name": "Fathom",
+      "slug": "fathom",
+      "category": "Llamadas",
+      "dominio": "fathom.video"
+    },
+    {
+      "match": [
+        "otter"
+      ],
+      "name": "Otter",
+      "slug": "otter",
+      "category": "Llamadas",
+      "dominio": "otter.ai"
+    },
+    {
+      "match": [
+        "tldv",
+        "tl;dv"
+      ],
+      "name": "tl;dv",
+      "slug": "tldv",
+      "category": "Llamadas",
+      "dominio": "tldv.io"
+    },
+    {
+      "match": [
+        "read ai",
+        "readai"
+      ],
+      "name": "Read AI",
+      "slug": "read-ai",
+      "category": "Llamadas",
+      "dominio": "read.ai"
+    },
+    {
+      "match": [
+        "gong"
+      ],
+      "name": "Gong",
+      "slug": "gong",
+      "category": "Llamadas",
+      "dominio": "gong.io"
+    },
+    {
+      "match": [
+        "zoom"
+      ],
+      "name": "Zoom",
+      "slug": "zoom",
+      "category": "Llamadas",
+      "icono": "zoom",
+      "dominio": "zoom.us"
+    },
+    {
+      "match": [
+        "clickup"
+      ],
+      "name": "ClickUp",
+      "slug": "clickup",
+      "category": "Proyectos",
+      "icono": "clickup",
+      "dominio": "clickup.com"
+    },
+    {
+      "match": [
+        "monday"
+      ],
+      "name": "monday.com",
+      "slug": "monday",
+      "category": "Proyectos",
+      "dominio": "monday.com"
+    }
+  ],
+  "ignorar": [
+    "claude code remote",
+    "claude-code-remote",
+    "remote devices",
+    "remote-devices",
+    "claude in chrome",
+    "claude-in-chrome",
+    "claude browser",
+    "claude docs",
+    "figma",
+    "canva",
+    "visualize",
+    "widgets",
+    "playwright",
+    "context7",
+    "computer",
+    "firecrawl",
+    "apollo",
+    "vibe prospecting",
+    "explorium",
+    "lusha",
+    "zoominfo",
+    "crunchbase",
+    "clay",
+    "similarweb",
+    "ahrefs",
+    "chrome devtools",
+    "chrome-devtools",
+    "claude preview",
+    "scheduled tasks",
+    "mcp registry",
+    "terminal"
+  ]
+}

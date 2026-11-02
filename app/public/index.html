@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditoría Método Hormozi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>Auditoría con el <span>método Hormozi</span></h1>
+      <span class="live" id="live" hidden><i></i>En vivo</span>
+    </div>
+    <div class="controls">
+      <button id="nueva" type="button">Nueva auditoría</button>
+      <button id="ejemplo" type="button">Ver ejemplo</button>
+      <select id="sesiones" aria-label="Auditorías guardadas"></select>
+      <button id="pausa" type="button" disabled>Pausa</button>
+      <button id="repetir" type="button" disabled title="Volver a escuchar lo que dijo (tocalo de nuevo para ir más atrás)">↺ Repetir</button>
+      <button id="siguiente" type="button" disabled>Siguiente</button>
+      <button id="sonido" type="button" aria-pressed="false">Sonido: sí</button>
+      <select id="voz" aria-label="Voz del navegador" hidden></select>
+      <select id="velocidad" aria-label="Velocidad">
+        <option value="1" selected>1x</option>
+        <option value="1.1">1,1x</option>
+        <option value="1.2">1,2x</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="grid">
+    <aside class="panel" aria-label="Herramientas conectadas">
+      <h2>Herramientas conectadas</h2>
+      <ul class="sources" id="fuentes"><li class="empty">Aparecen cuando Claude revisa tus conectores.</li></ul>
+      <div class="question" id="pregunta" hidden></div>
+      <h2 class="sub">Lo que encontró</h2>
+      <ul class="found" id="hallazgos"><li class="empty">Cada dato que saca de tus herramientas.</li></ul>
+    </aside>
+
+    <main class="stage" id="stage">
+      <div class="desk" id="desk">
+        <div class="halo"></div>
+        <svg class="haz" id="haz" aria-hidden="true"><line id="hazLinea" x1="0" y1="0" x2="0" y2="0"/></svg>
+        <div class="giro" id="giro">
+          <div class="bust" id="bust" data-shape="base">
+            <img class="base" alt="Asesor" src="retrato/base.webp">
+            <img class="open" alt="" src="retrato/open.webp">
+            <img class="mid" alt="" src="retrato/mid.webp">
+            <img class="blink" alt="" src="retrato/blink.webp">
+          </div>
+        </div>
+        <div class="orbita" id="orbita" aria-hidden="true"></div>
+        <div class="reading" id="lectura" hidden>
+          <span class="logo" id="lecturaLogo"></span>
+          <span class="txt"><b id="lecturaVerbo"></b><small id="lecturaQue"></small></span>
+          <span class="scan"></span>
+        </div>
+      </div>
+      <div class="nameplate">Asesor estilo Hormozi<small>Ofertas, precios y ventas</small></div>
+      <div class="topic" id="tema">Sala lista</div>
+      <div class="caption" id="subtitulo" aria-live="polite">Contale qué querés saber de tu negocio, acá abajo o en Claude, y mirá cómo lee tus herramientas para responderte. O tocá <b>Ver ejemplo</b>.</div>
+      <div class="quote" id="cita" hidden></div>
+      <form class="barra" id="formPregunta" autocomplete="off">
+        <button type="button" class="mic" id="mic" aria-label="Hablarle con el micrófono" title="Hablarle con el micrófono">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        </button>
+        <input id="preguntaTxt" type="text" maxlength="600" placeholder="Preguntale algo: ¿y si subo los precios?" aria-label="Tu pregunta">
+        <button type="submit" class="primary" id="preguntarBtn">Preguntar</button>
+      </form>
+      <p class="hint" id="hint"></p>
+    </main>
+
+    <aside class="panel" aria-label="Pizarrón de números">
+      <h2>El pizarrón</h2>
+      <div class="board" id="pizarron"><p class="empty">Los números aparecen acá a medida que los calcula.</p></div>
+    </aside>
+  </div>
+
+  <section class="panel report" aria-label="Resultado">
+    <div>
+      <h2>Sus 8 reglas, puntaje sobre 10</h2>
+      <div class="rules" id="reglas"><p class="empty">Aparecen al final de la auditoría.</p></div>
+      <div class="total" id="totalBox" hidden><span>Promedio</span><b id="promedio">-</b></div>
+    </div>
+    <div class="verdict" id="veredicto">
+      <h2>Veredicto</h2>
+      <p class="empty">Aparece al final de la auditoría.</p>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Conversación">
+    <h2>Conversación</h2>
+    <ol class="chat" id="charla"><li class="empty">Lo que dice el asesor y las preguntas que le hacés en Claude.</li></ol>
+  </section>
+
+  <footer>Asesor de IA creado a partir de 124 videos públicos de Alex Hormozi (2020 a 2026): sus frameworks, reglas, posturas y forma de hablar. No es él, no habla por él y no está afiliado. Retrato basado en Roast Room (AI Automation Society).</footer>
+</div>
+<script src="app.js" type="module"></script>
+</body>
+</html>

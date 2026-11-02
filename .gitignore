@@ -1,0 +1,8 @@
+.env
+node_modules/
+.DS_Store
+sessions/*
+!sessions/ejemplo-nordica-home/
+!sessions/.gitkeep
+sessions/*/audio/
+__pycache__/

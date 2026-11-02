@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/evento.mjs:*)",
+      "Bash(node scripts/calcular.mjs:*)",
+      "Bash(python3 scripts/verificar_citas.py:*)",
+      "Bash(python scripts/verificar_citas.py:*)",
+      "Bash(npm start)",
+      "Bash(npm run sala)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*",
+        "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hook-lectura.mjs\"", "timeout": 5 }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__.*",
+        "hooks": [{ "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hook-lectura.mjs\"", "timeout": 5 }]
+      }
+    ]
+  }
+}

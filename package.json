@@ -1,0 +1,12 @@
+{
+  "name": "auditoria-hormozi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Una IA entrenada con 124 videos de Alex Hormozi audita tu negocio leyendo tus herramientas conectadas a Claude, en vivo en una sala local.",
+  "type": "module",
+  "scripts": {
+    "start": "node app/server.mjs",
+    "sala": "node app/server.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
